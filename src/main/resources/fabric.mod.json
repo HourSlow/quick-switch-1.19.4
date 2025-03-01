@@ -3,13 +3,13 @@
 	"id": "quick_draw",
 	"version": "${version}",
 	"name": "Quick-Switch",
-	"description": "This mod adds a keybind to switch to your last hotbar slot.",
+	"description": "This mod adds a keybind to switch to your last selected hotbar slot.",
 	"authors": [
 		"HourSlow"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/quick-draw",
+		"sources": "https://github.com/HourSlow/quick-switch-1.19.4"
 	},
 	"license": "ARR",
 	"icon": "assets/quick_draw/icon.png",
