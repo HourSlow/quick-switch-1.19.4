@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "quick_draw",
+	"version": "${version}",
+	"name": "Quick-Switch",
+	"description": "This mod adds a keybind to switch to your last hotbar slot.",
+	"authors": [
+		"HourSlow"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "ARR",
+	"icon": "assets/quick_draw/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.hour.quick_draw.QuickSwitch"
+		],
+		"client": [
+			"net.hour.quick_draw.QuickSwitchClient"
+		],
+		"fabric-datagen": [
+			"net.hour.quick_draw.QuickSwitchDataGenerator"
+		]
+	},
+	"mixins": [
+		"quick_draw.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.19.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
