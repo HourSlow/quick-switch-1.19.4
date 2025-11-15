@@ -16,7 +16,7 @@ public class KeyInputHandler {
             "key.switch.last", // Translation key for the key binding
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_R,             // R key
-            "category.switch"  // Translation key for the category
+            KeyBinding.Category.INVENTORY  // Translation key for the category
     );
 
     public static void register() {
@@ -26,7 +26,7 @@ public class KeyInputHandler {
         // Listen for tick events
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
-                int currentSlot = client.player.getInventory().selectedSlot;
+                int currentSlot = client.player.getInventory().getSelectedSlot();
                 // Initialize prevSlot on first tick
                 if (prevSlot == -1) {
                     prevSlot = currentSlot;
@@ -34,10 +34,10 @@ public class KeyInputHandler {
 
                 if (lastHotbarKey.wasPressed()) {
                     System.out.println("Swap Hand key pressed");
-                    // Swap only if we have a valid lastSlot that's different from current
+                    // Swap only if there is a valid lastSlot that's different from the current
                     if (lastSlot != -1 && lastSlot != currentSlot) {
                         int temp = currentSlot;
-                        client.player.getInventory().selectedSlot = lastSlot;
+                        client.player.getInventory().setSelectedSlot(lastSlot);
                         lastSlot = temp;
                     }
                 } else {
