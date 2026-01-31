@@ -7,45 +7,38 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
-    // Variables to track the last manually selected slot and previous tick's slot.
     private static int lastSlot = -1;
     private static int prevSlot = -1;
 
-    // Create the key binding for the R key
     private static final KeyBinding lastHotbarKey = new KeyBinding(
-            "key.switch.last", // Translation key for the key binding
+            "key.switch.last",
             InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_R,             // R key
-            KeyBinding.Category.INVENTORY  // Translation key for the category
+            GLFW.GLFW_KEY_R,
+            "category.inventory"
     );
 
     public static void register() {
-        // Register the key binding
         KeyBindingHelper.registerKeyBinding(lastHotbarKey);
 
-        // Listen for tick events
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {
-                int currentSlot = client.player.getInventory().getSelectedSlot();
-                // Initialize prevSlot on first tick
+                int currentSlot = client.player.getInventory().selectedSlot;
+
                 if (prevSlot == -1) {
                     prevSlot = currentSlot;
                 }
 
-                if (lastHotbarKey.wasPressed()) {
-                    System.out.println("Swap Hand key pressed");
-                    // Swap only if there is a valid lastSlot that's different from the current
+                while (lastHotbarKey.wasPressed()) {
                     if (lastSlot != -1 && lastSlot != currentSlot) {
                         int temp = currentSlot;
-                        client.player.getInventory().setSelectedSlot(lastSlot);
+                        client.player.getInventory().selectedSlot = lastSlot;
                         lastSlot = temp;
                     }
-                } else {
-                    // If the player manually changes the slot, update lastSlot to previous slot
-                    if (currentSlot != prevSlot) {
-                        lastSlot = prevSlot;
-                        prevSlot = currentSlot;
-                    }
+                }
+
+                if (currentSlot != prevSlot) {
+                    lastSlot = prevSlot;
+                    prevSlot = currentSlot;
                 }
             }
         });
